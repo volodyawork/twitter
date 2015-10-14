@@ -1,0 +1,28 @@
+VG\UserBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: VG\UserBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        name:
+            type: string
+            length: 255
+            nullable: true
+        password:
+            type: string
+            length: 255
+        salt:
+            type: string
+            length: 255
+        roles:
+            type: array
+            length: 255
+    lifecycleCallbacks: {  }

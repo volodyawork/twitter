@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Регистрация{% endblock %}
+{% block body %}
+    <h1>Регистрация нового пользователя</h1>
+    Создание еще одной учетной записи с правами администратора сайта.
+    Пароль созданного пользователя будет отправлен на его email.
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_errors(form.email) }}
+    {{ form_widget(form.email,{ 'attr':{'class':'input_login', 'placeholder':'Email' }}) }}
+
+    {{ form_errors(form.password) }}
+    {{ form_widget(form.password,{ 'attr':{'class':'input_login', 'placeholder':'Password' }}) }}
+
+    <span style="font-size:14px; color:red;"> {{ error_message }} </span>
+
+    {{ form_widget(form.register,{ 'attr':{'class':'add_button'}}) }}
+
+    {{ form_end(form) }}
+{% endblock %}

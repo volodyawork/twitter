@@ -1,3 +1,12 @@
+twitter:
+    resource: "@TwitterBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+vg_user:
+    resource: "@VGUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

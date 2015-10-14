@@ -1,0 +1,12 @@
+login_path :
+    pattern:  /login
+    defaults: { _controller: VGUserBundle:Security:login}
+check_path :
+    pattern:  /login_check
+    defaults: { _controller: VGUserBundle:Security:securityCheck}
+logout:
+    pattern:  /logout
+    defaults: { _controller: VGUserBundle:Security:logout}
+registration_path :
+    pattern:  /registration
+    defaults: { _controller: VGUserBundle:Security:registration }

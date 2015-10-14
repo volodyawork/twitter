@@ -1,0 +1,38 @@
+{#% extends 'VGWebBundle::layout.html.twig' %#}
+{% extends '::base.html.twig' %}
+
+{% block title %}Авторизация{% endblock %}
+
+
+    {% block body %}
+        <h1>Авторизация
+        </h1>
+        <div>
+        <form action="{{ path('check_path') }}" method="POST">
+
+            <input type="text" class="input_login" id="username" placeholder="{% trans %}Email {% endtrans %}"
+                   name="_username"/>
+
+            <input type="password" class="input_login" id="password" placeholder="{% trans %}Password {% endtrans %}"
+                   name="_password"/>
+
+            {% if error %}
+                <div style="color:red">
+                {{ error.message | replace({
+                'Bad credentials': 'Invalid login/password'
+                }) }}
+
+
+                </div>
+            {% endif %}
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+                    >
+            <input type="submit" class="add_button" id="enter_button" name="login"
+                   value="{% trans %}Sign in {% endtrans %}"/>
+
+        </form>
+        </div>
+    {% endblock %}
+
