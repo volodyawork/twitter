@@ -37,7 +37,7 @@ class SecurityController extends Controller{
 
     public function registrationAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+
 
         $error_message="";
         $roles = array('ROLE_USER');
@@ -51,20 +51,35 @@ class SecurityController extends Controller{
 
 
         // TODO if password empty - generate password
-
+        $em = $this->getDoctrine()->getManager();
         if($form->isValid()){ // TODO валидация на уникальность емейла
-            $user->setEmail($form['email']->getData());
+            $redis = $this->container->get('pdl.phpredis.twitter');
+
+            $email = $form['email']->getData();
+
+            $salt = md5(time());
+            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+            $password = $encoder->encodePassword($form['password']->getData(), $user->getSalt());
+            $data = [
+                'salt' => $salt,
+                'password' => $password,
+                'roles' => $user->getRoles(),
+            ];
+            $redis->hMset('user:'.$email, $data);
+
+
+/*            $user->setEmail($form['email']->getData());
             $user->setSalt(md5(time()));
             $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
             $password = $encoder->encodePassword($form['password']->getData(), $user->getSalt());
             $user->setPassword($password);
 
             $em->persist($user);
-            $em->flush();
+            $em->flush();*/
 
 
             // send email with login-password
-            $site_mail = $this->container->getParameter('admin_email');
+/*            $site_mail = $this->container->getParameter('admin_email');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Регистрация')
                 ->setFrom($site_mail)
@@ -76,7 +91,7 @@ class SecurityController extends Controller{
                     )
                 )
             ;
-            $this->get('mailer')->send($message);
+            $this->get('mailer')->send($message);*/
 
 
 
@@ -84,8 +99,10 @@ class SecurityController extends Controller{
         }
 
         return $this->render(
-            'VGUserBundle:Security:registration.html.twig',array('form'=>$form->createView(),
-                'error_message'=>$error_message)
+            'VGUserBundle:Security:registration.html.twig',array(
+                'form'=>$form->createView(),
+                'error_message'=>$error_message
+            )
 
         );
     }

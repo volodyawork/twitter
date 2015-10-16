@@ -35,6 +35,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['bootstrap_3_layout.html.twig']
+        # resources: ['bootstrap_3_horizontal_layout.html.twig']
 
 # Assetic Configuration
 assetic:
@@ -78,3 +81,14 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+php_redis:
+    class:
+        twitter:
+            host:     127.0.0.1
+            port:     6379
+            prefix:   ''
+            database: 0
+            timeout:  0
+            auth:     null
+            skip_env: false

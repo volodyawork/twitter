@@ -4,10 +4,12 @@
 
 {% block title %}{% endblock %}
 
-
-
         {% block content %}
-            <h1>Hi, {{ user.username }}!</h1>
-
             <a href="{{ path('twitter_default_add') }}" class="btn btn-primary">Твіт</a>
+            <h1>{{ hashtag }}</h1>
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message.text|raw }}</li>
+                {% endfor %}
+            </ul>
         {% endblock %}

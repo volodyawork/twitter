@@ -18,6 +18,10 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
 
+
+            new Pompdelux\PHPRedisBundle\PHPRedisBundle(),
+
+
             new TwitterBundle\TwitterBundle(),
             new VG\UserBundle\VGUserBundle(),
         );

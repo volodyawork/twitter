@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    redis_user_provider:
+        class: VG\UserBundle\Security\User\RedisUserProvider
+        arguments:
+            - @service_container

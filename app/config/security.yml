@@ -1,10 +1,11 @@
 security:
     encoders:
-        VG\UserBundle\Entity\User:
-                            algorithm: sha512
-                            encode-as-base64: true
-                            iterations: 10
+#        VG\UserBundle\Entity\User:
+#                            algorithm: sha512
+#                            encode-as-base64: true
+#                            iterations: 10
         Symfony\Component\Security\Core\User\User: plaintext
+        VG\UserBundle\Security\User\RedisUser: sha512
 
     role_hierarchy:
         ROLE_USER: IS_AUTHENTICATED_ANONYMOUSLY
@@ -14,12 +15,23 @@ security:
     providers:
         chain_provider:
             chain:
-                providers: [user]
+                providers: [in_memory]
         user:
             entity:
                 class: VG\UserBundle\Entity\User
                 property: email
                 manager_name: ~
+        redis:
+            id: redis_user_provider
+        in_memory:
+            memory:
+                users:
+                    test:
+                        password: 123456
+                        roles: 'ROLE_USER'
+                    admin:
+                        password: 123456
+                        roles: 'ROLE_ADMIN'
 
     firewalls:
         main:
@@ -27,7 +39,7 @@ security:
             form_login:
                check_path: /login_check
                login_path: /login
-               default_target_path: admin_index
+               default_target_path: /
                csrf_provider: form.csrf_provider
             logout:
                path:   /logout

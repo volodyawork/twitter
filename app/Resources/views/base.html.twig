@@ -3,11 +3,22 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% block stylesheets %}
+            <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
