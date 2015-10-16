@@ -47,7 +47,7 @@ class DefaultController extends Controller
         $tweet->setText('');
 
         $form = $this->createFormBuilder($tweet)
-            ->add('text', 'text')
+            ->add('text', 'textarea')
             ->add('save', 'submit', array('label' => 'Save'))
             ->getForm();
 
